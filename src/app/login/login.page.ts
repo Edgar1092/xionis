@@ -12,6 +12,7 @@ export class LoginPage implements OnInit {
   public formGroup: FormGroup;
   isLoadingPresent = false
   loading
+  usuarios
   constructor(public navCtrl: NavController,
     public loadingController: LoadingController, 
     public alertCtrl: AlertController,
@@ -19,7 +20,7 @@ export class LoginPage implements OnInit {
     private fb: FormBuilder) {
       this.formGroup = this.fb.group({
         email: ['', Validators.compose([Validators.required])],
-        password: ['', Validators.compose([Validators.required])]
+        password: ['']
       });
      }
     
@@ -29,6 +30,19 @@ export class LoginPage implements OnInit {
   ionViewDidEnter(){
     localStorage.clear();
    }
+
+   async getUsuarios(){
+    this.displayLoading();
+    await this.apiS.ObtenerLista().subscribe((res)=>{
+      this.dismissLoading();
+     this.usuarios = res;
+      console.log("US =>",this.usuarios);
+    },(error)=>{
+      this.dismissLoading();
+      console.log(error);
+      this.presentAlert("Error Inseperado", "Contacte con soporte")
+    })
+  }
   async iniciarSesion() {
     this.displayLoading();
     let data = this.formGroup.value;
