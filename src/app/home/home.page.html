@@ -1,0 +1,19 @@
+<ion-content [fullscreen]="true">
+  <ion-grid *ngIf="lista && lista.length > 0">
+  <ion-slides #slideHome pager="false" [options]="slideOpts" (ionSlideDidChange)="slideChange()">
+    <ion-slide *ngFor="let l of lista" class="three" >
+      <ion-grid class="padding-0 margin-0">
+        <ion-row class="width-100 padding-0 margin-auto">
+          <img class="margin-auto" *ngIf="l.tipo != 'video/mp4'" [src]="ruta+l.ruta">
+          <ion-spinner class="margin-auto" *ngIf="l.tipo == 'video/mp4'" name="circles"></ion-spinner>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+  </ion-slides>
+  </ion-grid>
+  <ion-grid *ngIf="!lista || lista.length == 0">
+    <ion-row>
+      <p class="margin-auto">No hay lista activa</p>
+    </ion-row>
+  </ion-grid>
+</ion-content>

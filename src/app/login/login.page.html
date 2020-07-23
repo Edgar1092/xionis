@@ -1,0 +1,36 @@
+<ion-content>
+  <div class="body">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center" align-item-center>
+          <img src="assets/img/logo.jpeg">
+      </ion-row>
+      <ion-row>
+        <ion-label color="success" class="title">
+          Inicio de Sesión
+        </ion-label>
+      </ion-row>
+    </ion-grid>
+    <div class="content">
+      <form [formGroup]="formGroup" action="iniciarSesion()">
+        <ion-item>
+          <ion-label position="stacked" color="success">
+              Correo Electrónico
+          </ion-label>
+          <ion-input formControlName="email" placeholder="" type="text" clearInput> </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked" color="success">
+              Contraseña
+          </ion-label>
+          <ion-input formControlName="password" placeholder="" type="password" clearInput>
+          </ion-input>
+        </ion-item>
+      </form>
+    </div>
+    <div class="btn-content" style="margin-top: 20px">
+      <ion-button [disabled]="!formGroup.valid" class="btn-inicio" color="success" expand="full" shape="round" type="submit" (click)="iniciarSesion()">
+        Iniciar Sesión
+      </ion-button>
+    </div>
+  </div>
+</ion-content>
