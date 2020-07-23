@@ -12,6 +12,7 @@ import { ApiService } from './services/api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { VideoPlayer } from '@ionic-native/video-player/ngx';
 import { AuthGuardService } from './services/auth-guard.service';
+import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { AuthGuardService } from './services/auth-guard.service';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ApiService,
     VideoPlayer,
+    AndroidFullScreen,
     AuthGuardService
   ],
   bootstrap: [AppComponent]
