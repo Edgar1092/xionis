@@ -4,6 +4,7 @@ import { LoadingController, AlertController} from '@ionic/angular';
 import { ApiService } from '../services/api.service';
 import { environment } from "../../environments/environment";
 import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
+import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 
 @Component({
   selector: 'app-home',
@@ -115,6 +116,7 @@ export class HomePage implements OnInit {
   lista: any
   ruta = environment.baseApi+'/storage/app/public/archivos/';
   constructor(public navCtrl: NavController,
+    private androidFullScreen: AndroidFullScreen,
     public loadingController: LoadingController, 
     public alertCtrl: AlertController,
     public apiS: ApiService,
@@ -126,13 +128,23 @@ export class HomePage implements OnInit {
       localStorage.clear();
      }
      ionViewDidEnter(){
+    
       // this.openVideo();
      }
      ionViewDidLeave(){
        localStorage.clear();
      }
      ngOnInit(){
+
       this.getLista();
+      this.ocultarBarras();
+
+    }
+
+    ocultarBarras(){
+      this.androidFullScreen.isImmersiveModeSupported()
+      .then(() => this.androidFullScreen.immersiveMode())
+      .catch(err => console.log(err));
     }
 
     initializeApp() {  
@@ -161,6 +173,7 @@ export class HomePage implements OnInit {
      })
    }
    async openVideo(name){
+    this.ocultarBarras();
      console.log(this.ruta+name);
     this.videoPlayer.play(this.ruta+name, this.videoOption).then(() => {
       console.log('video completed');
