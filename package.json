@@ -29,6 +29,7 @@
     "cordova-plugin-fullscreen": "^1.2.0",
     "cordova-plugin-video-player": "git+https://github.com/moust/cordova-plugin-videoplayer.git",
     "cordova-res": "^0.15.1",
+    "moment": "^2.27.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

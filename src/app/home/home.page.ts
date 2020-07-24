@@ -5,7 +5,7 @@ import { ApiService } from '../services/api.service';
 import { environment } from "../../environments/environment";
 import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
-
+import * as Moment from 'moment';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -20,7 +20,7 @@ export class HomePage implements OnInit {
   //   autoplay: false,
   //   speed: 2000
   // };
-
+timeAwait = 8000;
    slideOpts = {
   on: {
     beforeInit() {
@@ -136,12 +136,41 @@ export class HomePage implements OnInit {
        localStorage.clear();
      }
      ngOnInit(){
-
+      Moment.locale('es');
+      let ac = Moment().format('LT');
+      let hmin = Moment('00:00', 'HH:mm').format('LT');
+      let hmax = Moment('01:00', 'HH:mm').format('LT');
+      console.log('AC', ac);
+      console.log('HMin', hmin);
+      console.log('HMax', hmax);
+      if(ac > hmin && ac < hmax){
+        console.log('Hora de actualizar');
+      }
+      
       this.getLista();
+      setTimeout( () => {
+        // this.obtenerNoti();
+        this.initTime();
+     }, 1000)
+    
       this.ocultarBarras();
+      
 
     }
-
+    initTime= ()=>{
+      setTimeout( () => {
+          // this.getLocation()
+          let ac = Moment().format('LT');
+          let hmin = Moment('00:00', 'HH:mm').format('LT');
+          let hmax = Moment('00:30', 'HH:mm').format('LT');
+          if(ac > hmin && ac < hmax){
+            console.log('Hora de actualizar');
+            this.getLista();
+          }
+        
+          this.initTime();
+     }, 600000)
+     }
     ocultarBarras(){
       this.androidFullScreen.isImmersiveModeSupported()
       .then(() => this.androidFullScreen.immersiveMode())
@@ -160,10 +189,18 @@ export class HomePage implements OnInit {
       this.lista = res.Archivo;
       // this.slideChange();
       if(this.lista && this.lista.length > 0){
-          if(this.lista[0].tipo == "video/mp4"){
+          if(parseInt(this.lista[0].tipo) == 1){
             // this.ishiden=false;
+            this.timeAwait = 2000;
             this.openVideo(this.lista[0].ruta);
           }else{
+            if(this.lista[0].tipoTiempo == 's'){
+              this.timeAwait = this.lista[0].tiempo*1000;
+            }else if(this.lista[0].tipoTiempo == 'm'){
+              this.timeAwait = this.lista[0].tiempo*60000;
+            }else{
+              this.timeAwait = 2000;
+            }
               this.nextSlide();
           }
       }
@@ -209,10 +246,17 @@ export class HomePage implements OnInit {
    slideChange(){
      this.slider.getActiveIndex().then(value =>{
       console.log("slide cambio",value);
-      if(this.lista[value].tipo == "video/mp4"){
+      if(parseInt(this.lista[value].tipo) == 1){
         this.openVideo(this.lista[value].ruta);
       }else{
         console.log("imagen");
+        if(this.lista[value].tipoTiempo == 's'){
+          this.timeAwait = this.lista[value].tiempo*1000;
+        }else if(this.lista[value].tipoTiempo == 'm'){
+          this.timeAwait = this.lista[value].tiempo*60000;
+        }else{
+          this.timeAwait = 2000;
+        }
         this.nextSlide();
       }
      });
@@ -230,7 +274,7 @@ export class HomePage implements OnInit {
           this.slider.slideNext();
         }
       })
-    }, 8000);
+    }, this.timeAwait);
    }
    prevSlide(){
      this.slider.slidePrev();

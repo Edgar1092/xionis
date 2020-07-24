@@ -19,8 +19,7 @@ export class LoginPage implements OnInit {
     public apiS: ApiService,
     private fb: FormBuilder) {
       this.formGroup = this.fb.group({
-        email: ['', Validators.compose([Validators.required])],
-        password: ['']
+        email: ['', Validators.compose([Validators.required])]
       });
      }
     

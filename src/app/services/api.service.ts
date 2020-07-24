@@ -19,7 +19,7 @@ export class ApiService {
 
   login(data){
     return this.http.post<any>(
-    environment.apiUrl + "/api/auth/login", data);
+    environment.apiUrl + "/api/auth/loginAPP", data);
   }
 
   ObtenerListaUsuarios(){

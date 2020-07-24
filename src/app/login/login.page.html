@@ -16,14 +16,9 @@
           <ion-label position="stacked" color="success">
               Correo Electrónico
           </ion-label>
-          <ion-input formControlName="email" placeholder="" type="text" clearInput> </ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked" color="success">
-              Contraseña
-          </ion-label>
-          <ion-input formControlName="password" placeholder="" type="password" clearInput>
-          </ion-input>
+          <ion-select formControlName="email" cancelText="Cancelar" okText="Seleccionar" placeholder="">
+            <ion-select-option *ngFor="let user of usuarios">{{user.email}}</ion-select-option>
+          </ion-select>
         </ion-item>
       </form>
     </div>
