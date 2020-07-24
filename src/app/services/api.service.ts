@@ -21,4 +21,11 @@ export class ApiService {
     return this.http.post<any>(
     environment.apiUrl + "/api/auth/login", data);
   }
+
+  ObtenerListaUsuarios(){
+  
+    let param = {};
+    return this.http.post<any>(
+    environment.apiUrl + "/api/users/usuarios", param);
+  }
 }

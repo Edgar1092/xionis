@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
      }
     
   ngOnInit() {
-    
+    this.getUsuarios();
   }
   ionViewDidEnter(){
     localStorage.clear();
@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
 
    async getUsuarios(){
     this.displayLoading();
-    await this.apiS.ObtenerLista().subscribe((res)=>{
+    await this.apiS.ObtenerListaUsuarios().subscribe((res)=>{
       this.dismissLoading();
      this.usuarios = res;
       console.log("US =>",this.usuarios);
