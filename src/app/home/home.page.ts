@@ -189,7 +189,7 @@ timeAwait = 8000;
       this.lista = res.Archivo;
       // this.slideChange();
       if(this.lista && this.lista.length > 0){
-          if(parseInt(this.lista[0].tipo) == 1){
+          if(this.lista[0].tipo == 1){
             // this.ishiden=false;
             this.timeAwait = 2000;
             this.openVideo(this.lista[0].ruta);
@@ -246,7 +246,7 @@ timeAwait = 8000;
    slideChange(){
      this.slider.getActiveIndex().then(value =>{
       console.log("slide cambio",value);
-      if(parseInt(this.lista[value].tipo) == 1){
+      if(this.lista[value].tipo == 1){
         this.openVideo(this.lista[value].ruta);
       }else{
         console.log("imagen");

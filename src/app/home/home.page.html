@@ -4,13 +4,14 @@
     <ion-slide *ngFor="let l of lista" class="three" >
       <ion-grid class="padding-0 margin-0">
         <ion-row class="width-100 padding-0 margin-auto">
-          <img class="margin-auto" *ngIf="l.tipo != '1'" [src]="ruta+l.ruta">
+          <img class="margin-auto" *ngIf="l.tipo == 0" [src]="ruta+l.ruta">
         </ion-row>
-        <div class="row" *ngIf="l.tipo == '1'">
+        <div class="row" *ngIf="l.tipo == 1">
    
           <div class="col">
               <div class="text-center">
-                <ion-spinner class="margin-auto clasesita" *ngIf="l.tipo == '1'" name="circles"></ion-spinner>
+                
+                <ion-spinner class="margin-auto clasesita" name="circles"></ion-spinner>
               </div>
           </div>
         </div>

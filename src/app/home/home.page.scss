@@ -10,6 +10,9 @@ ion-content {
     width: 100%;
     height: 100%;
   }
+  ion-slide, .swiper-container-flip .swiper-slide{
+    min-height: 100vh !important;
+  }
 }
 
 .clasesita{

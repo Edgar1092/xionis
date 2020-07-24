@@ -26,6 +26,9 @@
       <ion-button [disabled]="!formGroup.valid" class="btn-inicio" color="success" expand="full" shape="round" type="submit" (click)="iniciarSesion()">
         Iniciar Sesión
       </ion-button>
+      <ion-button class="btn-inicio" color="medium" expand="full" shape="round" type="submit" (click)="getUsuarios()">
+        Recargar
+      </ion-button>
     </div>
   </div>
 </ion-content>
