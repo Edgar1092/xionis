@@ -4,8 +4,18 @@
     <ion-slide *ngFor="let l of lista" class="three" >
       <ion-grid class="padding-0 margin-0">
         <ion-row class="width-100 padding-0 margin-auto">
-          <img class="margin-auto" *ngIf="l.tipo != 'video/mp4'" [src]="ruta+l.ruta">
-          <ion-spinner class="margin-auto" *ngIf="l.tipo == 'video/mp4'" name="circles"></ion-spinner>
+          <img class="margin-auto" *ngIf="l.tipo != 'video/mp4' || l.tipo != ' video/mp4 '" [src]="ruta+l.ruta">
+        </ion-row>
+        <div class="row" *ngIf="l.tipo == ' video/mp4 ' || l.tipo == 'video/mp4'">
+   
+          <div class="col">
+              <div class="text-center">
+                <ion-spinner class="margin-auto clasesita" *ngIf="l.tipo == ' video/mp4 ' || l.tipo != 'video/mp4'" name="circles"></ion-spinner>
+              </div>
+          </div>
+        </div>
+        <ion-row>
+          
         </ion-row>
       </ion-grid>
     </ion-slide>

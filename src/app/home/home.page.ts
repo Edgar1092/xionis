@@ -112,6 +112,7 @@ export class HomePage implements OnInit {
     volume: 0.7
   }
   loading: any;
+  ishiden=true;
   isLoadingPresent: boolean = false;
   lista: any
   ruta = environment.baseApi+'/storage/app/public/archivos/';
@@ -160,6 +161,7 @@ export class HomePage implements OnInit {
       // this.slideChange();
       if(this.lista && this.lista.length > 0){
           if(this.lista[0].tipo == "video/mp4"){
+            // this.ishiden=false;
             this.openVideo(this.lista[0].ruta);
           }else{
               this.nextSlide();
