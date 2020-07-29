@@ -213,12 +213,26 @@ export class HomePage implements OnInit {
    async openVideo(name){
      console.log(this.ruta+name);
 
-     this._url = "https://xionis.envioseurocarga.com/backend/storage/app/public/archivos/videoprueba1.mp4";
+     this._url = this.ruta+name;
      document.addEventListener('jeepCapVideoPlayerPlay', (e:CustomEvent) => { console.log('Event jeepCapVideoPlayerPlay ', e.detail)}, false);
      document.addEventListener('jeepCapVideoPlayerPause', (e:CustomEvent) => { console.log('Event jeepCapVideoPlayerPause ', e.detail)}, false);
      document.addEventListener('jeepCapVideoPlayerEnded', (e:CustomEvent) => { console.log('Event jeepCapVideoPlayerEnded ', e.detail)}, false);
      const res:any  = await this._videoPlayer.initPlayer({mode:"fullscreen",url:this._url});
     //  console.log(this.media)
+
+    document.addEventListener('jeepCapVideoPlayerEnded', (e:CustomEvent) => { 
+      console.log('Event jeepCapVideoPlayerEnded ', e.detail)
+      setTimeout(() => {
+            this.slider.isEnd().then((val)=>{
+              if(val){
+                this.slider.slideTo(0);
+              }else{
+                this.slider.slideNext();
+              }
+            })
+          }, 2000);
+
+    }, false);
     // this.videoPlayer.play(this.ruta+name, this.videoOption).then(() => {
     //   console.log('video completed');
     //   this.videoPlayer.close();
