@@ -7,11 +7,17 @@
           <img class="margin-auto" *ngIf="l.tipo == 0" [src]="ruta+l.ruta">
         </ion-row>
         <div class="row" *ngIf="l.tipo == 1">
-   
+          <!-- <video controls="controls" preload="metadata" autoplay="autoplay" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+            <source [src]="ruta+l.ruta"  type="video/mp4" />
+           </video> -->
           <div class="col">
               <div class="text-center">
                 
-                <ion-spinner class="margin-auto clasesita" name="circles"></ion-spinner>
+                <!-- <vg-player>
+                  <video [vgMedia]="media" #media id="singleVideo" preload="auto" autoplay="true" controls>
+                    <source [src]="ruta+l.ruta" type="video/mp4">
+                  </video>
+                </vg-player> -->
               </div>
           </div>
         </div>

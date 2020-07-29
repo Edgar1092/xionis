@@ -6,6 +6,9 @@ import { environment } from "../../environments/environment";
 import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 import * as Moment from 'moment';
+import { Plugins } from '@capacitor/core';
+import * as PluginsLibrary from '@jeepq/capacitor';
+const { CapacitorVideoPlayer,Device } = Plugins;
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -14,12 +17,9 @@ import * as Moment from 'moment';
 
 export class HomePage implements OnInit {
   @ViewChild('slideHome') slider: IonSlides;
-  // slideOpts = {
-  //   initialSlide: 0,
-  //   slidesPerView: 1,
-  //   autoplay: false,
-  //   speed: 2000
-  // };
+
+  _videoPlayer: any;
+  _url: string;
 timeAwait = 8000;
    slideOpts = {
   on: {
@@ -128,12 +128,10 @@ timeAwait = 8000;
      ngOnDestroy(){
       localStorage.clear();
      }
+
      ionViewDidEnter(){
     
       // this.openVideo();
-     }
-     ionViewDidLeave(){
-       localStorage.clear();
      }
      ngOnInit(){
       Moment.locale('es');
@@ -178,6 +176,11 @@ timeAwait = 8000;
     }
 
     initializeApp() {  
+      if(this.platform.is('android')){
+        this._videoPlayer = CapacitorVideoPlayer;
+      } else {
+        this._videoPlayer = PluginsLibrary.CapacitorVideoPlayer
+      }
       this.platform.backButton.subscribe(()=>{
         this.presentAlertConfirm();
       });
@@ -212,35 +215,41 @@ timeAwait = 8000;
      })
    }
    async openVideo(name){
-    this.ocultarBarras();
      console.log(this.ruta+name);
-    this.videoPlayer.play(this.ruta+name, this.videoOption).then(() => {
-      console.log('video completed');
-      this.videoPlayer.close();
-      setTimeout(() => {
-        this.slider.isEnd().then((val)=>{
-          if(val){
-            this.slider.slideTo(0);
-          }else{
-            this.slider.slideNext();
-          }
-        })
-      }, 2000);
-     }).catch(err => {
-      this.videoPlayer.close();
-       if(err == "OK"){
-        setTimeout(() => {
-          this.slider.isEnd().then((val)=>{
-            if(val){
-              this.slider.slideTo(0);
-            }else{
-              this.slider.slideNext();
-            }
-          })
-        }, 2000);
-       }
-      console.log("error",err);
-     });
+
+     this._url = "https://xionis.envioseurocarga.com/backend/storage/app/public/archivos/videoprueba1.mp4";
+     document.addEventListener('jeepCapVideoPlayerPlay', (e:CustomEvent) => { console.log('Event jeepCapVideoPlayerPlay ', e.detail)}, false);
+     document.addEventListener('jeepCapVideoPlayerPause', (e:CustomEvent) => { console.log('Event jeepCapVideoPlayerPause ', e.detail)}, false);
+     document.addEventListener('jeepCapVideoPlayerEnded', (e:CustomEvent) => { console.log('Event jeepCapVideoPlayerEnded ', e.detail)}, false);
+     const res:any  = await this._videoPlayer.initPlayer({mode:"fullscreen",url:this._url});
+    //  console.log(this.media)
+    // this.videoPlayer.play(this.ruta+name, this.videoOption).then(() => {
+    //   console.log('video completed');
+    //   this.videoPlayer.close();
+    //   setTimeout(() => {
+    //     this.slider.isEnd().then((val)=>{
+    //       if(val){
+    //         this.slider.slideTo(0);
+    //       }else{
+    //         this.slider.slideNext();
+    //       }
+    //     })
+    //   }, 2000);
+    //  }).catch(err => {
+    //   this.videoPlayer.close();
+    //    if(err == "OK"){
+    //     setTimeout(() => {
+    //       this.slider.isEnd().then((val)=>{
+    //         if(val){
+    //           this.slider.slideTo(0);
+    //         }else{
+    //           this.slider.slideNext();
+    //         }
+    //       })
+    //     }, 2000);
+    //    }
+    //   console.log("error",err);
+    //  });
      
    }
    slideChange(){
