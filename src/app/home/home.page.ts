@@ -3,7 +3,6 @@ import { NavParams, NavController, IonSlides, Platform } from '@ionic/angular';
 import { LoadingController, AlertController} from '@ionic/angular';
 import { ApiService } from '../services/api.service';
 import { environment } from "../../environments/environment";
-import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 import * as Moment from 'moment';
 import { Plugins } from '@capacitor/core';
@@ -20,7 +19,7 @@ export class HomePage implements OnInit {
 
   _videoPlayer: any;
   _url: string;
-timeAwait = 8000;
+  timeAwait = 8000;
    slideOpts = {
   on: {
     beforeInit() {
@@ -108,9 +107,7 @@ timeAwait = 8000;
     }
   }
 };
-  videoOption: VideoOptions = {
-    volume: 0.7
-  }
+
   loading: any;
   ishiden=true;
   isLoadingPresent: boolean = false;
@@ -121,7 +118,6 @@ timeAwait = 8000;
     public loadingController: LoadingController, 
     public alertCtrl: AlertController,
     public apiS: ApiService,
-    private videoPlayer: VideoPlayer,
     public platform: Platform) {
       this.initializeApp();
      }
