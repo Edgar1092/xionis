@@ -6,9 +6,7 @@ import { environment } from "../../environments/environment";
 // import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 import * as Moment from 'moment';
-import { Plugins } from '@capacitor/core';
-import * as PluginsLibrary from '@jeepq/capacitor';
-const { CapacitorVideoPlayer,Device } = Plugins;
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -176,11 +174,6 @@ timeAwait = 8000;
     }
 
     initializeApp() {  
-      if(this.platform.is('android')){
-        this._videoPlayer = CapacitorVideoPlayer;
-      } else {
-        this._videoPlayer = PluginsLibrary.CapacitorVideoPlayer
-      }
       this.platform.backButton.subscribe(()=>{
         this.presentAlertConfirm();
       });
