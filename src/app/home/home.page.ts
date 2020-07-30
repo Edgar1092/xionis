@@ -5,9 +5,7 @@ import { ApiService } from '../services/api.service';
 import { environment } from "../../environments/environment";
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 import * as Moment from 'moment';
-import { Plugins } from '@capacitor/core';
-import * as PluginsLibrary from '@jeepq/capacitor';
-const { CapacitorVideoPlayer,Device } = Plugins;
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -172,11 +170,6 @@ export class HomePage implements OnInit {
     }
 
     initializeApp() {  
-      if(this.platform.is('android')){
-        this._videoPlayer = CapacitorVideoPlayer;
-      } else {
-        this._videoPlayer = PluginsLibrary.CapacitorVideoPlayer
-      }
       this.platform.backButton.subscribe(()=>{
         this.presentAlertConfirm();
       });
@@ -213,53 +206,6 @@ export class HomePage implements OnInit {
    async openVideo(name){
      console.log(this.ruta+name);
 
-     this._url = this.ruta+name;
-     document.addEventListener('jeepCapVideoPlayerPlay', (e:CustomEvent) => { console.log('Event jeepCapVideoPlayerPlay ', e.detail)}, false);
-     document.addEventListener('jeepCapVideoPlayerPause', (e:CustomEvent) => { console.log('Event jeepCapVideoPlayerPause ', e.detail)}, false);
-     document.addEventListener('jeepCapVideoPlayerEnded', (e:CustomEvent) => { console.log('Event jeepCapVideoPlayerEnded ', e.detail)}, false);
-     const res:any  = await this._videoPlayer.initPlayer({mode:"fullscreen",url:this._url});
-    //  console.log(this.media)
-
-    document.addEventListener('jeepCapVideoPlayerEnded', (e:CustomEvent) => { 
-      console.log('Event jeepCapVideoPlayerEnded ', e.detail)
-      setTimeout(() => {
-            this.slider.isEnd().then((val)=>{
-              if(val){
-                this.slider.slideTo(0);
-              }else{
-                this.slider.slideNext();
-              }
-            })
-          }, 2000);
-
-    }, false);
-    // this.videoPlayer.play(this.ruta+name, this.videoOption).then(() => {
-    //   console.log('video completed');
-    //   this.videoPlayer.close();
-    //   setTimeout(() => {
-    //     this.slider.isEnd().then((val)=>{
-    //       if(val){
-    //         this.slider.slideTo(0);
-    //       }else{
-    //         this.slider.slideNext();
-    //       }
-    //     })
-    //   }, 2000);
-    //  }).catch(err => {
-    //   this.videoPlayer.close();
-    //    if(err == "OK"){
-    //     setTimeout(() => {
-    //       this.slider.isEnd().then((val)=>{
-    //         if(val){
-    //           this.slider.slideTo(0);
-    //         }else{
-    //           this.slider.slideNext();
-    //         }
-    //       })
-    //     }, 2000);
-    //    }
-    //   console.log("error",err);
-    //  });
      
    }
    slideChange(){
