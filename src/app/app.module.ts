@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ApiService } from './services/api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './services/auth-guard.service';
-import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';;
+import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 
 @NgModule({
   declarations: [AppComponent],
