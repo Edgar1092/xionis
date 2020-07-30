@@ -3,6 +3,7 @@ import { NavParams, NavController, IonSlides, Platform } from '@ionic/angular';
 import { LoadingController, AlertController} from '@ionic/angular';
 import { ApiService } from '../services/api.service';
 import { environment } from "../../environments/environment";
+// import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 import * as Moment from 'moment';
 import { Plugins } from '@capacitor/core';
@@ -19,7 +20,7 @@ export class HomePage implements OnInit {
 
   _videoPlayer: any;
   _url: string;
-  timeAwait = 8000;
+timeAwait = 8000;
    slideOpts = {
   on: {
     beforeInit() {
@@ -107,7 +108,9 @@ export class HomePage implements OnInit {
     }
   }
 };
-
+  videoOption: VideoOptions = {
+    volume: 0.7
+  }
   loading: any;
   ishiden=true;
   isLoadingPresent: boolean = false;
@@ -118,6 +121,7 @@ export class HomePage implements OnInit {
     public loadingController: LoadingController, 
     public alertCtrl: AlertController,
     public apiS: ApiService,
+    private videoPlayer: VideoPlayer,
     public platform: Platform) {
       this.initializeApp();
      }
@@ -213,7 +217,7 @@ export class HomePage implements OnInit {
    async openVideo(name){
      console.log(this.ruta+name);
 
-     this._url = this.ruta+name;
+     this._url = "https://xionis.envioseurocarga.com/backend/storage/app/public/archivos/videoprueba1.mp4";
      document.addEventListener('jeepCapVideoPlayerPlay', (e:CustomEvent) => { console.log('Event jeepCapVideoPlayerPlay ', e.detail)}, false);
      document.addEventListener('jeepCapVideoPlayerPause', (e:CustomEvent) => { console.log('Event jeepCapVideoPlayerPause ', e.detail)}, false);
      document.addEventListener('jeepCapVideoPlayerEnded', (e:CustomEvent) => { console.log('Event jeepCapVideoPlayerEnded ', e.detail)}, false);
@@ -222,44 +226,36 @@ export class HomePage implements OnInit {
 
     document.addEventListener('jeepCapVideoPlayerEnded', (e:CustomEvent) => { 
       console.log('Event jeepCapVideoPlayerEnded ', e.detail)
-      setTimeout(() => {
-            this.slider.isEnd().then((val)=>{
-              if(val){
-                this.slider.slideTo(0);
-              }else{
-                this.slider.slideNext();
-              }
-            })
-          }, 2000);
 
+      
     }, false);
-    // this.videoPlayer.play(this.ruta+name, this.videoOption).then(() => {
-    //   console.log('video completed');
-    //   this.videoPlayer.close();
-    //   setTimeout(() => {
-    //     this.slider.isEnd().then((val)=>{
-    //       if(val){
-    //         this.slider.slideTo(0);
-    //       }else{
-    //         this.slider.slideNext();
-    //       }
-    //     })
-    //   }, 2000);
-    //  }).catch(err => {
-    //   this.videoPlayer.close();
-    //    if(err == "OK"){
-    //     setTimeout(() => {
-    //       this.slider.isEnd().then((val)=>{
-    //         if(val){
-    //           this.slider.slideTo(0);
-    //         }else{
-    //           this.slider.slideNext();
-    //         }
-    //       })
-    //     }, 2000);
-    //    }
-    //   console.log("error",err);
-    //  });
+    this.videoPlayer.play(this.ruta+name, this.videoOption).then(() => {
+      console.log('video completed');
+      this.videoPlayer.close();
+      setTimeout(() => {
+        this.slider.isEnd().then((val)=>{
+          if(val){
+            this.slider.slideTo(0);
+          }else{
+            this.slider.slideNext();
+          }
+        })
+      }, 2000);
+     }).catch(err => {
+      this.videoPlayer.close();
+       if(err == "OK"){
+        setTimeout(() => {
+          this.slider.isEnd().then((val)=>{
+            if(val){
+              this.slider.slideTo(0);
+            }else{
+              this.slider.slideNext();
+            }
+          })
+        }, 2000);
+       }
+      console.log("error",err);
+     });
      
    }
    slideChange(){
