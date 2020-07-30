@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 
+import { VideoPlayer } from '@ionic-native/video-player/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -24,6 +26,7 @@ import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
     ApiService,
     AndroidFullScreen,
     AuthGuardService,
+    VideoPlayer
     
   ],
   bootstrap: [AppComponent]

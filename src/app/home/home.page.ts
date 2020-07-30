@@ -3,7 +3,7 @@ import { NavParams, NavController, IonSlides, Platform } from '@ionic/angular';
 import { LoadingController, AlertController} from '@ionic/angular';
 import { ApiService } from '../services/api.service';
 import { environment } from "../../environments/environment";
-// import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
+import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 import * as Moment from 'moment';
 import {VgAPI} from 'videogular2/compiled/core';
@@ -18,7 +18,7 @@ export class HomePage implements OnInit {
   @ViewChild('slideHome') slider: IonSlides;
 
 timeAwait = 8000;
-   slideOpts = {
+slideOpts = {
   on: {
     beforeInit() {
       const swiper = this;
@@ -105,9 +105,9 @@ timeAwait = 8000;
     }
   }
 };
-  // videoOption: VideoOptions = {
-  //   volume: 0.7
-  // }
+  videoOption: VideoOptions = {
+    volume: 0.7
+  }
   loading: any;
   ishiden=true;
   isLoadingPresent: boolean = false;
@@ -120,7 +120,8 @@ timeAwait = 8000;
     public loadingController: LoadingController, 
     public alertCtrl: AlertController,
     public apiS: ApiService,
-    public platform: Platform) {
+    public platform: Platform,
+    private videoPlayer: VideoPlayer) {
       this.initializeApp();
      }
      ngOnDestroy(){
@@ -212,54 +213,54 @@ timeAwait = 8000;
      })
    }
    async openVideo(name){
-     this.hiddenVideo =false;
-     console.log(this.ruta+name);
-     this.api.getDefaultMedia().currentTime = 0;
-     this.api.play();
-     this.api.getDefaultMedia().subscriptions.ended.subscribe(
-       () => {
-           // Set the video to the beginning
-           this.api.getDefaultMedia().currentTime = 0;
-           console.log("Fin");
-           setTimeout(() => {
-             this.hiddenVideo =true;
-                this.slider.isEnd().then((val)=>{
-                  if(val){
-                    this.slider.slideTo(0);
-                  }else{
-                    this.slider.slideNext();
-                  }
-                })
-              }, 2000);
+  //    this.hiddenVideo =false;
+  //    console.log(this.ruta+name);
+  //    this.api.getDefaultMedia().currentTime = 0;
+  //    this.api.play();
+  //    this.api.getDefaultMedia().subscriptions.ended.subscribe(
+  //      () => {
+  //          // Set the video to the beginning
+  //          this.api.getDefaultMedia().currentTime = 0;
+  //          console.log("Fin");
+  //          setTimeout(() => {
+  //            this.hiddenVideo =true;
+  //               this.slider.isEnd().then((val)=>{
+  //                 if(val){
+  //                   this.slider.slideTo(0);
+  //                 }else{
+  //                   this.slider.slideNext();
+  //                 }
+  //               })
+  //             }, 2000);
+  //      }
+  //  );
+    this.videoPlayer.play(this.ruta+name, this.videoOption).then(() => {
+      console.log('video completed');
+      this.videoPlayer.close();
+      setTimeout(() => {
+        this.slider.isEnd().then((val)=>{
+          if(val){
+            this.slider.slideTo(0);
+          }else{
+            this.slider.slideNext();
+          }
+        })
+      }, 2000);
+     }).catch(err => {
+      this.videoPlayer.close();
+       if(err == "OK"){
+        setTimeout(() => {
+          this.slider.isEnd().then((val)=>{
+            if(val){
+              this.slider.slideTo(0);
+            }else{
+              this.slider.slideNext();
+            }
+          })
+        }, 2000);
        }
-   );
-    // this.videoPlayer.play(this.ruta+name, this.videoOption).then(() => {
-    //   console.log('video completed');
-    //   this.videoPlayer.close();
-    //   setTimeout(() => {
-    //     this.slider.isEnd().then((val)=>{
-    //       if(val){
-    //         this.slider.slideTo(0);
-    //       }else{
-    //         this.slider.slideNext();
-    //       }
-    //     })
-    //   }, 2000);
-    //  }).catch(err => {
-    //   this.videoPlayer.close();
-    //    if(err == "OK"){
-    //     setTimeout(() => {
-    //       this.slider.isEnd().then((val)=>{
-    //         if(val){
-    //           this.slider.slideTo(0);
-    //         }else{
-    //           this.slider.slideNext();
-    //         }
-    //       })
-    //     }, 2000);
-    //    }
-    //   console.log("error",err);
-    //  });
+      console.log("error",err);
+     });
      
    }
    slideChange(){
