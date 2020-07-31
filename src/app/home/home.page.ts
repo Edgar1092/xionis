@@ -129,7 +129,7 @@ slideOpts = {
      }
      onPlayerReady(api:VgAPI) {
       this.api = api;
-      console.log("listo")
+      console.log("listo",this.api);
     }
 
      ionViewDidEnter(){
@@ -213,8 +213,8 @@ slideOpts = {
      })
    }
    async openVideo(name){
-  //    this.hiddenVideo =false;
-  //    console.log(this.ruta+name);
+    //  this.hiddenVideo =false;
+     console.log(this.ruta+name);
   //    this.api.getDefaultMedia().currentTime = 0;
   //    this.api.play();
   //    this.api.getDefaultMedia().subscriptions.ended.subscribe(

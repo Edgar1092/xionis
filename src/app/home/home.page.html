@@ -7,16 +7,16 @@
           <img class="margin-auto" *ngIf="l.tipo == 0" [src]="ruta+l.ruta">
         </ion-row>
         <div class="row" *ngIf="l.tipo == 1">
-          <!-- <div class="col">
-              <div class="text-center">
+          <div class="col">
+              <!-- <div class="text-center">
                 
                 <vg-player [hidden]="hiddenVideo" (onPlayerReady)="onPlayerReady($event)">
                   <video [vgMedia]="media" #media id="singleVideo" preload="auto" autoplay controls>
                     <source [src]="ruta+l.ruta" type="video/mp4">
                   </video>
                 </vg-player>
-              </div>
-          </div> -->
+              </div> -->
+          </div>
         </div>
         <ion-row>
           
