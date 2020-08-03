@@ -1,6 +1,6 @@
 export const environment = {
-  apiUrl:"https://xionis.envioseurocarga.com/backend/public/index.php",
-  baseApi:"http://xionis.envioseurocarga.com/backend",
+  apiUrl:"https://xionis.es/xionis/backend/public/index.php",
+  baseApi:"http://xionis.es/xionis/backend",
   production: true
   
 };
