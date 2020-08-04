@@ -8,6 +8,8 @@ import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 import * as Moment from 'moment';
 
 
+
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -95,6 +97,7 @@ slideOpts = {
     public platform: Platform,
     private videoPlayer: VideoPlayer) {
       this.initializeApp();
+      
      }
      ngOnDestroy(){
       localStorage.clear();
@@ -106,6 +109,7 @@ slideOpts = {
       // this.openVideo();
      }
      ngOnInit(){
+     
       Moment.locale('es');
       let ac = Moment().format('LT');
       let hmin = Moment('00:00', 'HH:mm').format('LT');
@@ -187,9 +191,9 @@ slideOpts = {
      })
    }
    async openVideo(name,reproducir=0){
-   
+
     this.videoPlayer.play(this.ruta+name, this.videoOption).then(() => {
-  
+      this.ocultarBarras()
       this.videoPlayer.close();
       setTimeout(() => {
         if(reproducir==1){
