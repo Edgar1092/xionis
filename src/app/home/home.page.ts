@@ -6,7 +6,7 @@ import { environment } from "../../environments/environment";
 import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 import * as Moment from 'moment';
-import {VgAPI} from 'videogular2/compiled/core';
+
 
 @Component({
   selector: 'app-home',
@@ -85,7 +85,7 @@ slideOpts = {
   isLoadingPresent: boolean = false;
   lista: any
   ruta = environment.baseApi+'/storage/app/public/archivos/';
-  api:VgAPI;
+
   hiddenVideo = true;
   constructor(public navCtrl: NavController,
     private androidFullScreen: AndroidFullScreen,
@@ -99,10 +99,7 @@ slideOpts = {
      ngOnDestroy(){
       localStorage.clear();
      }
-     onPlayerReady(api:VgAPI) {
-      this.api = api;
-      console.log("listo",this.api);
-    }
+
 
      ionViewDidEnter(){
     
@@ -113,11 +110,9 @@ slideOpts = {
       let ac = Moment().format('LT');
       let hmin = Moment('00:00', 'HH:mm').format('LT');
       let hmax = Moment('01:00', 'HH:mm').format('LT');
-      console.log('AC', ac);
-      console.log('HMin', hmin);
-      console.log('HMax', hmax);
+     
       if(ac > hmin && ac < hmax){
-        console.log('Hora de actualizar');
+       
       }
       
       this.getLista();
@@ -192,42 +187,9 @@ slideOpts = {
      })
    }
    async openVideo(name,reproducir=0){
-    //  this.hiddenVideo =false;
-     console.log(this.ruta+name);
-  //    this.api.getDefaultMedia().currentTime = 0;
-  //    this.api.play();
-  //    this.api.getDefaultMedia().subscriptions.ended.subscribe(
-  //      () => {
-  //          // Set the video to the beginning
-  //          this.api.getDefaultMedia().currentTime = 0;
-  //          console.log("Fin");
-  //          setTimeout(() => {
-  //            this.hiddenVideo =true;
-  //               this.slider.isEnd().then((val)=>{
-  //                 if(val){
-  //                   this.slider.slideTo(0);
-  //                 }else{
-  //                   this.slider.slideNext();
-  //                 }
-  //               })
-  //             }, 2000);
-  //      }
-  //  );
-  // if(reproducir==1){
-  //   this.videoPlayer.play(this.ruta+name, this.videoOption).then(() => {
-  //     console.log('video completed');
-     
-  //  this.openVideo(this.ruta+name,1)
-  //    }).catch(err => {
-  //     this.videoPlayer.close();
-  //      if(err == "OK"){
-     
-  //      }
-  //     console.log("error",err);
-  //    }); 
-  // }
+   
     this.videoPlayer.play(this.ruta+name, this.videoOption).then(() => {
-      console.log('video completed');
+  
       this.videoPlayer.close();
       setTimeout(() => {
         if(reproducir==1){
@@ -261,11 +223,11 @@ slideOpts = {
    }
    slideChange(){
      this.slider.getActiveIndex().then(value =>{
-      console.log("slide cambio",value);
+     
       if(this.lista[value].tipo == 1){
         this.openVideo(this.lista[value].ruta);
       }else{
-        console.log("imagen");
+  
         if(this.lista[value].tipoTiempo == 's'){
           this.timeAwait = this.lista[value].tiempo*1000;
         }else if(this.lista[value].tipoTiempo == 'm'){
@@ -283,7 +245,7 @@ slideOpts = {
     
     setTimeout(() => {
       this.slider.isEnd().then((val)=>{
-        console.log("ultimo",val)
+    
         if(val){
           this.slider.slideTo(0);
         }else{

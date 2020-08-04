@@ -1,6 +1,6 @@
 {
   "name": "xionis",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
@@ -33,7 +33,6 @@
     "moment": "^2.27.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.10.0",
-    "videogular2": "^7.0.2",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
