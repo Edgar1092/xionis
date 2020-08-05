@@ -85,7 +85,7 @@ slideOpts = {
   loading: any;
   ishiden=true;
   isLoadingPresent: boolean = false;
-  lista: any
+  lista = []
   ruta = environment.baseApi+'/storage/app/public/archivos/';
 
   hiddenVideo = true;
@@ -103,25 +103,12 @@ slideOpts = {
       localStorage.clear();
      }
 
-
-     ionViewDidEnter(){
-    
-      // this.openVideo();
-     }
      ngOnInit(){
      
       Moment.locale('es');
-      let ac = Moment().format('LT');
-      let hmin = Moment('00:00', 'HH:mm').format('LT');
-      let hmax = Moment('01:00', 'HH:mm').format('LT');
-     
-      if(ac > hmin && ac < hmax){
-       
-      }
       
       this.getLista();
       setTimeout( () => {
-        // this.obtenerNoti();
         this.initTime();
      }, 1000)
     
@@ -129,14 +116,15 @@ slideOpts = {
       
 
     }
+    
     initTime= ()=>{
       setTimeout( () => {
-          // this.getLocation()
           let ac = Moment().format('LT');
-          let hmin = Moment('00:00', 'HH:mm').format('LT');
-          let hmax = Moment('00:30', 'HH:mm').format('LT');
-          if(ac > hmin && ac < hmax){
-            console.log('Hora de actualizar');
+          let hminD = Moment('00:00', 'HH:mm').format('LT');
+          let hmaxD = Moment('00:30', 'HH:mm').format('LT');
+          let hminN = Moment('12:00', 'HH:mm').format('LT');
+          let hmaxN = Moment('12:30', 'HH:mm').format('LT');
+          if((ac > hminN && ac < hmaxN) || (ac > hminD && ac < hmaxD) ){
             this.getLista();
           }
         
@@ -158,8 +146,18 @@ slideOpts = {
      this.displayLoading();
      await this.apiS.ObtenerLista().subscribe((res)=>{
        this.dismissLoading();
-      this.lista = res.Archivo;
-      // this.slideChange();
+       let data = JSON.parse(JSON.stringify(res));
+       if(data){
+        data.forEach(element => {
+          if(element.Archivo != ""){
+            let d = element.Archivo
+            d.forEach(ele => {
+              this.lista.push(ele)
+            });
+          }
+          
+        });
+       }
     
       if(this.lista && this.lista.length > 0){
         if(this.lista.length==1 && this.lista[0].tipo == 1){
@@ -168,7 +166,6 @@ slideOpts = {
           this.openVideo(this.lista[0].ruta,1);
         }else{
           if(this.lista[0].tipo == 1){
-            // this.ishiden=false;
             this.timeAwait = 2000;
             this.openVideo(this.lista[0].ruta);
           }else{
@@ -183,7 +180,6 @@ slideOpts = {
           }
         }
       }
-       console.log("Lista =>",this.lista);
      },(error)=>{
        this.dismissLoading();
        console.log(error);
@@ -243,7 +239,6 @@ slideOpts = {
       }
      });
      
-    //  console.log("slide cambio",this.slider.getActiveIndex());
    }
    nextSlide(){
     

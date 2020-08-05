@@ -3,8 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  apiUrl:"https://xionis.es/xionis/backend/public/index.php",
-  baseApi:"http://xionis.es/xionis/backend",
+  apiUrl:"http://localhost/envioeurocargaAdmin/backend/public",
+  baseApi:"http://localhost/envioeurocargaAdmin/backend",
   production: false
 };
 
