@@ -148,7 +148,7 @@ slideOpts = {
        this.dismissLoading();
        let data = JSON.parse(JSON.stringify(res));
        if(data){
-         console.log('aqui la data',data)
+        
         // data.forEach(element => {
         //   if(element.Archivo != ""){
         //     let d = element.Archivo
@@ -159,7 +159,7 @@ slideOpts = {
           
         // });
         this.lista=data;
-        // console.log(this.lista)
+
        }
     
       if(this.lista && this.lista.length > 0){
@@ -192,7 +192,7 @@ slideOpts = {
    async openVideo(name,reproducir=0){
 
     this.videoPlayer.play(this.ruta+name, this.videoOption).then(() => {
-      this.ocultarBarras()
+    
       this.videoPlayer.close();
       setTimeout(() => {
         if(reproducir==1){
