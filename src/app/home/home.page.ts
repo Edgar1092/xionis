@@ -148,15 +148,18 @@ slideOpts = {
        this.dismissLoading();
        let data = JSON.parse(JSON.stringify(res));
        if(data){
-        data.forEach(element => {
-          if(element.Archivo != ""){
-            let d = element.Archivo
-            d.forEach(ele => {
-              this.lista.push(ele)
-            });
-          }
+         console.log('aqui la data',data)
+        // data.forEach(element => {
+        //   if(element.Archivo != ""){
+        //     let d = element.Archivo
+        //     d.forEach(ele => {
+        //       this.lista.push(ele)
+        //     });
+        //   }
           
-        });
+        // });
+        this.lista=data;
+        // console.log(this.lista)
        }
     
       if(this.lista && this.lista.length > 0){
