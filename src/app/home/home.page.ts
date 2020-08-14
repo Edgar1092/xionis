@@ -146,21 +146,21 @@ slideOpts = {
      this.displayLoading();
      await this.apiS.ObtenerLista().subscribe((res)=>{
        this.dismissLoading();
-       let data = JSON.parse(JSON.stringify(res));
-       if(data){
+       this.lista= res;
+      //  if(data){
         
-        // data.forEach(element => {
-        //   if(element.Archivo != ""){
-        //     let d = element.Archivo
-        //     d.forEach(ele => {
-        //       this.lista.push(ele)
-        //     });
-        //   }
+      //   data.forEach(element => {
+      //     if(element.Archivo != ""){
+      //       let d = element.Archivo
+      //       d.forEach(ele => {
+      //         this.lista.push(ele)
+      //       });
+      //     }
           
-        // });
-        this.lista=data;
+      //   });
+      //   // this.lista=data;
 
-       }
+      //  }
     
       if(this.lista && this.lista.length > 0){
         if(this.lista.length==1 && this.lista[0].tipo == 1){
@@ -190,10 +190,9 @@ slideOpts = {
      })
    }
    async openVideo(name,reproducir=0){
-
-    this.videoPlayer.play(this.ruta+name, this.videoOption).then(() => {
-    
-      this.videoPlayer.close();
+    console.log('playyy');
+    await this.videoPlayer.play(this.ruta+name, this.videoOption).then((res) => {
+      console.log("fin", res);
       setTimeout(() => {
         if(reproducir==1){
           this.openVideo(name,1)
@@ -207,9 +206,10 @@ slideOpts = {
         })
       }
       }, 2000);
-     }).catch(err => {
+     },(error)=>{
+      console.log("erooooo",error)
       this.videoPlayer.close();
-       if(err == "OK"){
+       if(error == "OK"){
         setTimeout(() => {
           this.slider.isEnd().then((val)=>{
             if(val){
@@ -220,7 +220,7 @@ slideOpts = {
           })
         }, 2000);
        }
-      console.log("error",err);
+      console.log("error",error);
      });
      
    }
