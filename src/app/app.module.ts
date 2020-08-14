@@ -14,7 +14,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 
 import { VideoPlayer } from '@ionic-native/video-player/ngx';
-
+import { Network } from '@ionic-native/network/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +27,8 @@ import { VideoPlayer } from '@ionic-native/video-player/ngx';
     ApiService,
     AndroidFullScreen,
     AuthGuardService,
-    VideoPlayer
+    VideoPlayer,
+    Network
     
   ],
   bootstrap: [AppComponent]

@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NavParams, NavController, IonSlides, Platform } from '@ionic/angular';
-import { LoadingController, AlertController} from '@ionic/angular';
+import { LoadingController, AlertController, ToastController} from '@ionic/angular';
 import { ApiService } from '../services/api.service';
 import { environment } from "../../environments/environment";
 import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 import * as Moment from 'moment';
-
+import { NetworkService } from '../services/network.service';
 
 
 
@@ -89,13 +89,16 @@ slideOpts = {
   ruta = environment.baseApi+'/storage/app/public/archivos/';
 
   hiddenVideo = true;
+  isConnected = false;
   constructor(public navCtrl: NavController,
     private androidFullScreen: AndroidFullScreen,
     public loadingController: LoadingController, 
     public alertCtrl: AlertController,
     public apiS: ApiService,
     public platform: Platform,
-    private videoPlayer: VideoPlayer) {
+    private videoPlayer: VideoPlayer,
+    private networkService: NetworkService,
+    public toastCtrl : ToastController) {
       this.initializeApp();
       
      }
@@ -191,6 +194,8 @@ slideOpts = {
    }
    async openVideo(name,reproducir=0){
     console.log('playyy');
+    this.connected();
+    if(this.isConnected){
     await this.videoPlayer.play(this.ruta+name, this.videoOption).then((res) => {
       console.log("fin", res);
       setTimeout(() => {
@@ -222,7 +227,7 @@ slideOpts = {
        }
       console.log("error",error);
      });
-     
+    }
    }
    slideChange(){
      this.slider.getActiveIndex().then(value =>{
@@ -317,5 +322,40 @@ slideOpts = {
     });
 
     await alert.present();
+  }
+  connected(){
+    this.networkService.getNetworkStatus().subscribe((connected: boolean) => {
+      this.isConnected = connected;
+      if (!this.isConnected) {
+        this.displayToastButton('Por favor enciende tu conexión a Internet');
+          console.log('Por favor enciende tu conexión a Internet');
+      }else{
+        this.displayToastButton('Conectado a Internet');
+      }
+    });
+  }
+    /**
+   * Método para mostrar un mensaje en pantalla con botón
+   * @param text Mensaje del Toast
+   * @param buttonText Texto del botón
+   * @param position Posición UtilitiesProvider.POS_TOP - UtilitiesProvider.POS_MIDDLE - UtilitiesProvider.POS_BOTTOM
+   */
+  async displayToastButton(text, buttonText?: string, position?: 'top' | 'middle' | 'bottom') {
+    let btnTxt = 'OK';
+    let pos: 'top' | 'middle' | 'bottom' = 'bottom';
+    if (buttonText) {
+      btnTxt = buttonText;
+    }
+    if (position) {
+      pos = position;
+    }
+    const toast = await this.toastCtrl.create({
+      message: text,
+      duration:5000,
+      cssClass: "toastMid",
+      position: pos,
+    });
+
+    toast.present();
   }
 }
