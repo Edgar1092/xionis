@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Autostart } from '@ionic-native/autostart/ngx';
+
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 
 @Component({
@@ -17,7 +17,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public alertCtrl: AlertController,
-    private autostart: Autostart,
+ 
     private androidFullScreen: AndroidFullScreen
   ) {
     this.initializeApp();
@@ -28,8 +28,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.autostart.enable();
-      this.ocultarBarras()
+
     });
 
     this.platform.backButton.subscribe(()=>{
