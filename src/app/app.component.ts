@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
+import { CacheService } from 'ionic-cache';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +18,12 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public alertCtrl: AlertController,
- 
+    cache: CacheService,
     private androidFullScreen: AndroidFullScreen
   ) {
     this.initializeApp();
+    cache.setDefaultTTL(60 * 60); 
+    cache.setOfflineInvalidate(false);
    
   }
 

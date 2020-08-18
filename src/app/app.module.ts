@@ -15,11 +15,13 @@ import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 
 import { VideoPlayer } from '@ionic-native/video-player/ngx';
 import { Network } from '@ionic-native/network/ngx';
+import { StreamingMedia} from '@ionic-native/streaming-media/ngx';
+import { CacheModule } from "ionic-cache";
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,CacheModule.forRoot({ keyPrefix: 'cacheIonic4' })],
   providers: [
     StatusBar,
     SplashScreen,
@@ -28,7 +30,8 @@ import { Network } from '@ionic-native/network/ngx';
     AndroidFullScreen,
     AuthGuardService,
     VideoPlayer,
-    Network
+    Network,
+    StreamingMedia
     
   ],
   bootstrap: [AppComponent]

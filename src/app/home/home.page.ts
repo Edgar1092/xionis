@@ -7,6 +7,7 @@ import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 import * as Moment from 'moment';
 import { NetworkService } from '../services/network.service';
+import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media/ngx';
 
 
 
@@ -98,7 +99,8 @@ slideOpts = {
     public platform: Platform,
     private videoPlayer: VideoPlayer,
     private networkService: NetworkService,
-    public toastCtrl : ToastController) {
+    public toastCtrl : ToastController,
+    private streamingMedia: StreamingMedia) {
       this.initializeApp();
       
      }
@@ -193,40 +195,81 @@ slideOpts = {
      })
    }
    async openVideo(name,reproducir=0){
-    console.log('playyy');
+    // console.log('playyy');
     this.connected();
     if(this.isConnected){
-    await this.videoPlayer.play(this.ruta+name, this.videoOption).then((res) => {
-      console.log("fin", res);
-      setTimeout(() => {
-        if(reproducir==1){
-          this.openVideo(name,1)
-        }else{
-        this.slider.isEnd().then((val)=>{
+      let options: StreamingVideoOptions = {
+        successCallback: () => { 
+          console.log('reprodujo')
+              setTimeout(() => {
+            if(reproducir==1){
+              this.openVideo(name,1)
+            }else{
+            this.slider.isEnd().then((val)=>{
+              if(val){
+                this.slider.slideTo(0);
+              }else{
+                this.slider.slideNext();
+              }
+            })
+          }
+          }, 2000);
+        },
+        errorCallback: (e) => {   
+          console.log('se gurio')  
+          this.slider.isEnd().then((val)=>{
           if(val){
             this.slider.slideTo(0);
           }else{
             this.slider.slideNext();
           }
         })
+      },
+        orientation: 'landscape',
+        shouldAutoClose: true,
+        controls: false
+      };
+      this.streamingMedia.playVideo(this.ruta+name, options);
+    // await this.videoPlayer.play(this.ruta+name, this.videoOption).then((res) => {
+    //   console.log("fin", res);
+    //   setTimeout(() => {
+    //     if(reproducir==1){
+    //       this.openVideo(name,1)
+    //     }else{
+    //     this.slider.isEnd().then((val)=>{
+    //       if(val){
+    //         this.slider.slideTo(0);
+    //       }else{
+    //         this.slider.slideNext();
+    //       }
+    //     })
+    //   }
+    //   }, 2000);
+    //  },(error)=>{
+    //   console.log("erooooo",error)
+    //   this.videoPlayer.close();
+    //    if(error == "OK"){
+    //     setTimeout(() => {
+    //       this.slider.isEnd().then((val)=>{
+    //         if(val){
+    //           this.slider.slideTo(0);
+    //         }else{
+    //           this.slider.slideNext();
+    //         }
+    //       })
+    //     }, 2000);
+    //    }
+    //   console.log("error",error);
+    //  });
+    }else{
+      console.log('no hay conexion')  
+      this.slider.isEnd().then((val)=>{
+      if(val){
+        this.slider.slideTo(0);
+      }else{
+        this.slider.slideNext();
       }
-      }, 2000);
-     },(error)=>{
-      console.log("erooooo",error)
-      this.videoPlayer.close();
-       if(error == "OK"){
-        setTimeout(() => {
-          this.slider.isEnd().then((val)=>{
-            if(val){
-              this.slider.slideTo(0);
-            }else{
-              this.slider.slideNext();
-            }
-          })
-        }, 2000);
-       }
-      console.log("error",error);
-     });
+    })
     }
    }
    slideChange(){
