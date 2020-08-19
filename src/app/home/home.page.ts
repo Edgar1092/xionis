@@ -8,6 +8,7 @@ import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 import * as Moment from 'moment';
 import { NetworkService } from '../services/network.service';
 import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media/ngx';
+import { Observable } from 'rxjs';
 
 
 
@@ -87,6 +88,7 @@ slideOpts = {
   ishiden=true;
   isLoadingPresent: boolean = false;
   lista = []
+  results: Observable<any>;
   ruta = environment.baseApi+'/storage/app/public/archivos/';
 
   hiddenVideo = true;
@@ -102,27 +104,29 @@ slideOpts = {
     public toastCtrl : ToastController,
     private streamingMedia: StreamingMedia) {
       this.initializeApp();
-      
+      this.results = this.apiS.ObtenerLista();
      }
      ngOnDestroy(){
       localStorage.clear();
      }
 
      ngOnInit(){
-     
+     console.log('este es el result',this.results);
       Moment.locale('es');
-      
-      this.getLista();
+      this.connected();
+      // this.getLista();
       setTimeout( () => {
+        // this.getLista();
         this.initTime();
      }, 1000)
     
       this.ocultarBarras();
-      
+     
 
     }
     
     initTime= ()=>{
+
       setTimeout( () => {
           let ac = Moment().format('LT');
           let hminD = Moment('00:00', 'HH:mm').format('LT');
@@ -135,6 +139,7 @@ slideOpts = {
         
           this.initTime();
      }, 600000)
+
      }
     ocultarBarras(){
       this.androidFullScreen.isImmersiveModeSupported()
@@ -152,6 +157,8 @@ slideOpts = {
      await this.apiS.ObtenerLista().subscribe((res)=>{
        this.dismissLoading();
        this.lista= res;
+ 
+       console.log('lista',res)
       //  if(data){
         
       //   data.forEach(element => {
@@ -196,7 +203,7 @@ slideOpts = {
    }
    async openVideo(name,reproducir=0){
     // console.log('playyy');
-    this.connected();
+   
     if(this.isConnected){
       let options: StreamingVideoOptions = {
         successCallback: () => { 
@@ -373,7 +380,11 @@ slideOpts = {
         this.displayToastButton('Por favor enciende tu conexión a Internet');
           console.log('Por favor enciende tu conexión a Internet');
       }else{
-        this.displayToastButton('Conectado a Internet');
+        if(this.lista.length == 0){
+          // this.displayToastButton('Conectado a Internet');
+          this.getLista();
+        }
+        // this.displayToastButton('Conectado a Internet');
       }
     });
   }
