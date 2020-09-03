@@ -13,10 +13,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 
-import { VideoPlayer } from '@ionic-native/video-player/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import { StreamingMedia} from '@ionic-native/streaming-media/ngx';
 import { CacheModule } from "ionic-cache";
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +29,6 @@ import { CacheModule } from "ionic-cache";
     ApiService,
     AndroidFullScreen,
     AuthGuardService,
-    VideoPlayer,
     Network,
     StreamingMedia
     

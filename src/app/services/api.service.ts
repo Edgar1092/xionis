@@ -18,8 +18,8 @@ export class ApiService {
     let url = environment.apiUrl + "/api/lista/get/activa/app";
     let cacheKey = url;
     let request = this.http.post(url,param);
-    return this.cache.loadFromObservable(cacheKey, request);
-    // return this.http.post<any>(, param);
+    // return this.cache.loadFromObservable(cacheKey, request);
+     return this.http.post<any>(url, param);
   }
 
   login(data){

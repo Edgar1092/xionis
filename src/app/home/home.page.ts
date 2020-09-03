@@ -3,7 +3,6 @@ import { NavParams, NavController, IonSlides, Platform } from '@ionic/angular';
 import { LoadingController, AlertController, ToastController} from '@ionic/angular';
 import { ApiService } from '../services/api.service';
 import { environment } from "../../environments/environment";
-import { VideoPlayer, VideoOptions } from '@ionic-native/video-player/ngx';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
 import * as Moment from 'moment';
 import { NetworkService } from '../services/network.service';
@@ -81,9 +80,7 @@ slideOpts = {
     },
   }
 }
-  videoOption: VideoOptions = {
-    volume: 0.7
-  }
+
   loading: any;
   ishiden=true;
   isLoadingPresent: boolean = false;
@@ -99,7 +96,6 @@ slideOpts = {
     public alertCtrl: AlertController,
     public apiS: ApiService,
     public platform: Platform,
-    private videoPlayer: VideoPlayer,
     private networkService: NetworkService,
     public toastCtrl : ToastController,
     private streamingMedia: StreamingMedia) {
@@ -232,7 +228,7 @@ slideOpts = {
           }
         })
       },
-        orientation: 'landscape',
+        orientation: 'auto',
         shouldAutoClose: true,
         controls: false
       };
