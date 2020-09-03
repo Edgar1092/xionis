@@ -127,7 +127,7 @@ slideOpts = {
     
     initTime= ()=>{
 
-      setTimeout( () => {
+      setInterval( () => {
           let ac = Moment().format('LT');
           let hminD = Moment('00:00', 'HH:mm').format('LT');
           let hmaxD = Moment('00:30', 'HH:mm').format('LT');
@@ -136,9 +136,9 @@ slideOpts = {
           if((ac > hminN && ac < hmaxN) || (ac > hminD && ac < hmaxD) ){
             this.getLista();
           }
-        
-          this.initTime();
-     }, 600000)
+        console.log("intervalo listo")
+          // this.initTime();
+     }, 50000)
 
      }
     ocultarBarras(){
