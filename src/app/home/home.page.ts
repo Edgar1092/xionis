@@ -9,8 +9,6 @@ import { NetworkService } from '../services/network.service';
 import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media/ngx';
 import { Observable } from 'rxjs';
 
-
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -90,6 +88,7 @@ slideOpts = {
 
   hiddenVideo = true;
   isConnected = false;
+  intervaloHora = 60*60000;
   constructor(public navCtrl: NavController,
     private androidFullScreen: AndroidFullScreen,
     public loadingController: LoadingController, 
@@ -129,12 +128,12 @@ slideOpts = {
           let hmaxD = Moment('00:30', 'HH:mm').format('LT');
           let hminN = Moment('12:00', 'HH:mm').format('LT');
           let hmaxN = Moment('12:30', 'HH:mm').format('LT');
-          if((ac > hminN && ac < hmaxN) || (ac > hminD && ac < hmaxD) ){
+          // if((ac > hminN && ac < hmaxN) || (ac > hminD && ac < hmaxD) ){
             this.getLista();
-          }
+          // }
         console.log("intervalo listo")
           // this.initTime();
-     }, 50000)
+     }, this.intervaloHora)
 
      }
     ocultarBarras(){
@@ -315,7 +314,7 @@ slideOpts = {
      try {
        this.loading = await this.loadingController.create({
          message: message ? message : 'Cargando',
-         duration: duration ? duration : 5000
+         duration: duration ? duration : 3000
        });
        await this.loading.present();
        this.isLoadingPresent = true;

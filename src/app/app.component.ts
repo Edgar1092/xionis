@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
+import { Autostart } from '@ionic-native/autostart/ngx';
 import { CacheService } from 'ionic-cache';
 
 
@@ -21,6 +22,7 @@ export class AppComponent {
     public alertCtrl: AlertController,
     cache: CacheService,
     private androidFullScreen: AndroidFullScreen,
+    private autostart: Autostart
 
   ) {
     this.initializeApp();
@@ -33,15 +35,9 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
-
-      
-
+      this.autostart.enable();
     });
 
-    this.platform.backButton.subscribe(()=>{
-
-    });
   }
 
 

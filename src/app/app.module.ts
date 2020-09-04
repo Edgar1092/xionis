@@ -12,6 +12,7 @@ import { ApiService } from './services/api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AndroidFullScreen } from '@ionic-native/android-full-screen/ngx';
+import { Autostart } from '@ionic-native/autostart/ngx';
 
 import { Network } from '@ionic-native/network/ngx';
 import { StreamingMedia} from '@ionic-native/streaming-media/ngx';
@@ -30,7 +31,8 @@ import { CacheModule } from "ionic-cache";
     AndroidFullScreen,
     AuthGuardService,
     Network,
-    StreamingMedia
+    StreamingMedia,
+    Autostart
     
   ],
   bootstrap: [AppComponent]

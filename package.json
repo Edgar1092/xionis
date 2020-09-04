@@ -1,6 +1,6 @@
 {
   "name": "xionis",
-  "version": "0.0.11",
+  "version": "0.0.15",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~9.1.6",
     "@angular/router": "~9.1.6",
     "@ionic-native/android-full-screen": "^5.27.0",
+    "@ionic-native/autostart": "^5.28.0",
     "@ionic-native/core": "^5.0.7",
     "@ionic-native/network": "^5.27.0",
     "@ionic-native/splash-screen": "^5.0.0",
@@ -82,7 +83,8 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-fullscreen": {},
       "cordova-plugin-network-information": {},
-      "cordova-plugin-streaming-media": {}
+      "cordova-plugin-streaming-media": {},
+      "cordova-plugin-autostart": {}
     },
     "platforms": [
       "android"
